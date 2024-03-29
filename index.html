@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="jquery.js"></script>
+    <script src="functions.js"></script>
+    <title>Text Adventurer</title>
+</head>
+<body>
+    <p id="welcome"></p>
+    <div id="nameInsert" style="opacity: 0">
+        <input type="text" id="usernameText" maxlength="19" placeholder="Digite aqui" autocomplete="off">
+        <button id="usernameButton">></button>
+    </div>
+    <script>
+         $(document).ready(function(){
+            typeText("#welcome", "Olá!", 100, 1000);
+            typeText("#welcome", "Você é novo por aqui", 100, 5000);
+            typeText("#welcome", "Como se chama?", 100, 10000);
+            setTimeout(function(){
+                $("#nameInsert").animate({top: '130px', opacity: "1"}, 800);
+            }, 12000);
+            let username = "";
+            let botouNada = false;
+            let usernameSayed = false;
+
+            $("#usernameButton").click(function(){
+                if($("#usernameText").val() != "" && !usernameSayed){
+                    username= $("#usernameText").val();
+                    $("#nameInsert").animate({top: '260px', opacity: "0"}, 800);
+                    sayYourName();
+                    usernameSayed = true;
+                } else if(!botouNada){
+                    typeText("#welcome", "Por favor, digite seu nome");
+                    botouNada = true;
+                }
+            });
+
+            function sayYourName(){
+                typeText("#welcome", username, 100);
+                typeText("#welcome", ", que nome lindo!", 100, username.length*100+1000, false);
+                setTimeout(function(){
+                    afterSayYourName();
+                }, username.length*100+5000);
+            }
+
+            function afterSayYourName(){
+                alert("Obrigado pelo seu tempo!");
+            }
+        });
+    </script>
+</body>
+</html>
